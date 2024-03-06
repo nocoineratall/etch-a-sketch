@@ -1,5 +1,6 @@
 // creates the initial grid and implement the function to create new grids
 let gridSize = 16; //intended 16x16
+let userColor = "bisque"; //defaulted to bisque
 const gridWidth = 640; //px
 const gridHeight = gridWidth;
 const container = document.querySelector(".container");
@@ -21,7 +22,7 @@ function newGrid(_gridSize) {
       String(gridHeight / _gridSize - 2 * squareStyleBorderSize) + "px";
 
     square.addEventListener("mouseover", () => {
-      square.style.backgroundColor = "bisque";
+      square.style.backgroundColor = userColor;
     });
     container.appendChild(square);
   }
@@ -49,4 +50,19 @@ function removeAllChild(parent) {
 const resetBtn = document.querySelector(".reset-btn");
 resetBtn.addEventListener("click", () => {
   newGrid(gridSize);
+});
+
+// button for color picking
+const colorBtn = document.querySelector(".color-btn");
+
+function colorPicker() {
+  let color = prompt("type the name of a color:");
+  return color;
+}
+
+colorBtn.addEventListener("click", () => {
+  userColor = colorPicker();
+  const currentColor = document.querySelector(".current-color");
+  currentColor.textContent = userColor;
+  currentColor.style.backgroundColor = userColor;
 });
