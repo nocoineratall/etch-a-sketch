@@ -1,26 +1,22 @@
-// creates the initial grid and implement the function to create new grids
+// creates the initial grid and UI
 let gridSize = 16; //intended 16x16
 let userColor = "bisque"; //defaulted to bisque
+let squareWidthHeight = "10px"; //defaulted to 10px
 const gridWidth = 640; //px
 const gridHeight = gridWidth;
 const container = document.querySelector(".container");
 container.style.maxWidth = String(gridWidth) + "px"; // no need to set maxHeight also
-newGrid(gridSize);
+printGrid(gridSize);
+makePresetColors();
 
-function newGrid(_gridSize) {
+function printGrid(_gridSize) {
   removeAllChild(container);
   for (let i = 1; i <= _gridSize ** 2; i++) {
     const square = document.createElement("div");
     square.classList = "square";
-    square.textContent = i;
+    //square.textContent = i;
     // takes into account the border thickness when computing the square size
-    let squareStyleBorder = (square.style.border = "1px solid slategrey");
-    let squareStyleBorderSize = squareStyleBorder.charAt(0);
-    square.style.width =
-      String(gridWidth / _gridSize - 2 * squareStyleBorderSize) + "px";
-    square.style.height =
-      String(gridHeight / _gridSize - 2 * squareStyleBorderSize) + "px";
-
+    setSquareSize(square, _gridSize);
     square.addEventListener("mouseover", () => {
       square.style.backgroundColor = userColor;
     });
@@ -28,12 +24,21 @@ function newGrid(_gridSize) {
   }
 }
 
+function setSquareSize(_square, _gridSize) {
+  let squareStyleBorder = (_square.style.border = "1px solid slategrey");
+  let squareStyleBorderSize = squareStyleBorder.charAt(0);
+  squareWidthHeight =
+    String(gridWidth / _gridSize - 2 * squareStyleBorderSize) + "px";
+  _square.style.width = squareWidthHeight;
+  _square.style.height = squareWidthHeight;
+}
+
 // creates the button to make a new grid based on input
 const newGridBtn = document.querySelector(".new-grid");
 newGridBtn.addEventListener("click", () => {
   gridSize = prompt("Enter the size of the grid (1-100)");
   if (gridSize > 0 && gridSize <= 100) {
-    newGrid(gridSize);
+    printGrid(gridSize);
   } else {
     alert("Input denied - Set a size from 1 to 100");
   }
@@ -49,20 +54,39 @@ function removeAllChild(parent) {
 // button to reset grid color
 const resetBtn = document.querySelector(".reset-btn");
 resetBtn.addEventListener("click", () => {
-  newGrid(gridSize);
+  printGrid(gridSize);
 });
 
 // button for color picking
-const colorBtn = document.querySelector(".color-btn");
+const colorBtn = document.querySelector(".change-color-btn");
 
-function colorPicker() {
+function promptColor() {
   let color = prompt("type the name of a color:");
   return color;
 }
 
-colorBtn.addEventListener("click", () => {
-  userColor = colorPicker();
+function setCurrentColor() {
   const currentColor = document.querySelector(".current-color");
   currentColor.textContent = userColor;
   currentColor.style.backgroundColor = userColor;
+}
+
+colorBtn.addEventListener("click", () => {
+  userColor = promptColor();
+  setCurrentColor();
 });
+
+// preset colors
+function makePresetColors() {
+  const presetColors = document.querySelectorAll(".preset-colors button");
+  presetColors.forEach((button) => {
+    button.style.width = squareWidthHeight;
+    button.style.height = squareWidthHeight;
+    button.style.backgroundColor = button.className;
+
+    button.addEventListener("click", () => {
+      userColor = button.className;
+      setCurrentColor();
+    });
+  });
+}
