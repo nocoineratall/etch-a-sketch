@@ -8,24 +8,39 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <button class="new-grid">New Grid</button>
-    <button class="reset-btn">Reset</button>
-    <div class="container"></div>
-    <div class="color-btn-container">
-      <div class="preset-colors">
-        <button class="darkred"></button>
-        <button class="darkorange"></button>
-        <button class="gold"></button>
-        <button class="darkgreen"></button>
-        <button class="purple"></button>
-        <button class="darkblue"></button>
-        <button class="white"></button>
-        <button class="rainbow">Rainbow Mode</button>
-      </div>
-      <p class="current-color-p">
-        Current color = <span class="current-color">bisque</span>
-      </p>
-      <button class="change-color-btn">Change color</button>
+    <div class="header">
+      <h1 class="page-title">Etch-a-Sketch</h1>
+      <p>Draw fantastic pixel art by hovering your mouse on the grid</p>
     </div>
+
+    <div class="main-container">
+      <div class="action-buttons">
+        <button class="change-color-btn">Change color</button>
+        <button class="new-grid">New Grid</button>
+        <button class="reset-btn">Reset</button>
+        <button class="grid-selector-btn">Grid ON/OFF</button>
+      </div>
+
+      <div class="container"></div>
+
+      <div class="color-btn-container">
+        <div class="preset-colors">
+          <p>Default Colors</p>
+          <button class="darkred"></button>
+          <button class="darkorange"></button>
+          <button class="gold"></button>
+          <button class="darkgreen"></button>
+          <button class="purple"></button>
+          <button class="darkblue"></button>
+          <button class="white"></button>
+          <div class="rainbow-container">
+            <button class="rainbow-mode">Rainbow Mode</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="current-color-p">
+      Current color = <span class="current-color">bisque</span>
+    </p>
   </body>
 </html>
