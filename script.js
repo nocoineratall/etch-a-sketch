@@ -1,8 +1,9 @@
 // creates the initial grid and UI
 let gridSize = 16; //intended 16x16
 let userColor = "bisque"; //defaulted to bisque
+let isRainbow = false;
 let squareWidthHeight = "10px"; //defaulted to 10px
-const gridWidth = 640; //px
+const gridWidth = 760; //px
 const gridHeight = gridWidth;
 const container = document.querySelector(".container");
 container.style.maxWidth = String(gridWidth) + "px"; // no need to set maxHeight also
@@ -18,7 +19,16 @@ function printGrid(_gridSize) {
     // takes into account the border thickness when computing the square size
     setSquareSize(square, _gridSize);
     square.addEventListener("mouseover", () => {
-      square.style.backgroundColor = userColor;
+      if (!isRainbow) {
+        square.style.backgroundColor = userColor;
+      } else {
+        // random rgb color when "rainbow" mode is active
+        let randomR = Math.floor(Math.random() * 256);
+        let randomG = Math.floor(Math.random() * 256);
+        let randomB = Math.floor(Math.random() * 256);
+        let randomRGB = `rgb(${randomR}, ${randomG}, ${randomB})`;
+        square.style.backgroundColor = randomRGB;
+      }
     });
     container.appendChild(square);
   }
@@ -51,14 +61,14 @@ function removeAllChild(parent) {
   }
 }
 
-// button to reset grid color
+// button to reset grid
 const resetBtn = document.querySelector(".reset-btn");
 resetBtn.addEventListener("click", () => {
   printGrid(gridSize);
 });
 
 // button for color picking
-const colorBtn = document.querySelector(".change-color-btn");
+const changeColorBtn = document.querySelector(".change-color-btn");
 
 function promptColor() {
   let color = prompt("type the name of a color:");
@@ -71,7 +81,7 @@ function setCurrentColor() {
   currentColor.style.backgroundColor = userColor;
 }
 
-colorBtn.addEventListener("click", () => {
+changeColorBtn.addEventListener("click", () => {
   userColor = promptColor();
   setCurrentColor();
 });
@@ -87,6 +97,7 @@ function makePresetColors() {
     button.addEventListener("click", () => {
       userColor = button.className;
       setCurrentColor();
+      if (userColor == "rainbow") isRainbow = true;
     });
   });
 }
