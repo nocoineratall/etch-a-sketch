@@ -30,8 +30,12 @@ function newGrid(_gridSize) {
 // creates the button to make a new grid based on input
 const newGridBtn = document.querySelector(".new-grid");
 newGridBtn.addEventListener("click", () => {
-  gridSize = prompt("Enter the size of the grid");
-  newGrid(gridSize);
+  gridSize = prompt("Enter the size of the grid (1-100)");
+  if (gridSize > 0 && gridSize <= 100) {
+    newGrid(gridSize);
+  } else {
+    alert("Input denied - Set a size from 1 to 100");
+  }
 });
 
 //empties the grid
