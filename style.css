@@ -1,10 +1,93 @@
+* {
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+body {
+  background-color: black;
+  flex-direction: column;
+}
+
+.header {
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  gap: 20px;
+}
+
+.page-title {
+  font-size: 50px;
+}
+
+.header p {
+  font-size: 30px;
+}
+.main-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.preset-colors {
+  flex-direction: column;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.preset-colors button {
+  border-radius: 8px;
+}
+
+.page-title,
+p {
+  color: whitesmoke;
+  text-align: center;
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;
-  border: 2px solid gray;
-  border-radius: 6px;
+  border: 5px solid gray;
+  border-radius: 12px;
 }
 
-.square {
+.square,
+.preset-colors.button {
   border: 1px solid rgb(0, 0, 0);
+  color: white;
+  font-size: 12px;
+}
+
+.current-color-p {
+  color: white;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.current-color {
+  color: black;
+  background-color: bisque;
+  padding: 5px 10px;
+  border-radius: 6px;
+  margin-left: 20px;
+}
+
+.action-buttons {
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 40px;
+}
+
+.action-buttons button {
+  padding: 15px;
+  border-radius: 12px;
+  font-size: 15px;
+  color: whitesmoke;
+  background-color: rgb(22, 150, 255);
+  border: none;
 }
