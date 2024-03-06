@@ -12,19 +12,22 @@ function newGrid(_gridSize) {
     const square = document.createElement("div");
     square.classList = "square";
     square.textContent = i;
-    square.style.color = "grey";
     // takes into account the border thickness when computing the square size
-    let squareStyleBorder = (square.style.border = "1px solid black");
+    let squareStyleBorder = (square.style.border = "1px solid slategrey");
     let squareStyleBorderSize = squareStyleBorder.charAt(0);
     square.style.width =
       String(gridWidth / _gridSize - 2 * squareStyleBorderSize) + "px";
     square.style.height =
       String(gridHeight / _gridSize - 2 * squareStyleBorderSize) + "px";
+
+    square.addEventListener("mouseover", () => {
+      square.style.backgroundColor = "bisque";
+    });
     container.appendChild(square);
   }
 }
 
-// creates the button to make a new grid base on input
+// creates the button to make a new grid based on input
 const newGridBtn = document.querySelector(".new-grid");
 newGridBtn.addEventListener("click", () => {
   gridSize = prompt("Enter the size of the grid");
@@ -37,3 +40,9 @@ function removeAllChild(parent) {
     parent.removeChild(parent.firstChild);
   }
 }
+
+// button to reset grid color
+const resetBtn = document.querySelector(".reset-btn");
+resetBtn.addEventListener("click", () => {
+  newGrid(gridSize);
+});
