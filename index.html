@@ -15,27 +15,40 @@
 
     <div class="main-container">
       <div class="action-buttons">
-        <button class="change-color-btn">Change color</button>
         <button class="new-grid">New Grid</button>
         <button class="reset-btn">Reset</button>
         <button class="grid-selector-btn">Grid ON/OFF</button>
+        <button class="change-color-btn">Change color</button>
+        <fieldset class="mode-selector-container">
+          <legend>Select mode:</legend>
+          <div>
+            <input type="radio" id="mode1" name="mode" value="flow" checked />
+            <label for="mode1">Flow</label>
+          </div>
+          <div>
+            <input type="radio" id="mode2" name="mode" value="point" />
+            <label for="mode2">Point</label>
+          </div>
+        </fieldset>
       </div>
 
       <div class="container"></div>
 
       <div class="color-btn-container">
         <div class="preset-colors">
-          <p>Default Colors</p>
-          <button class="darkred"></button>
-          <button class="darkorange"></button>
-          <button class="gold"></button>
-          <button class="darkgreen"></button>
-          <button class="purple"></button>
-          <button class="darkblue"></button>
-          <button class="white"></button>
-          <div class="rainbow-container">
-            <button class="rainbow-mode">Rainbow Mode</button>
-          </div>
+          <fieldset>
+            <legend>Default Colors</legend>
+            <button class="darkred"></button>
+            <button class="darkorange"></button>
+            <button class="gold"></button>
+            <button class="darkgreen"></button>
+            <button class="purple"></button>
+            <button class="darkblue"></button>
+            <button class="white"></button>
+            <div class="rainbow-container">
+              <button class="rainbow-mode">Rainbow Mode</button>
+            </div>
+          </fieldset>
         </div>
       </div>
     </div>
