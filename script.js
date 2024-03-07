@@ -133,12 +133,11 @@ function promptColor() {
 }
 
 function setCurrentColor() {
-  const currentColor = document.querySelector(".current-color");
-  currentColor.textContent = userColor;
+  const currentColor = document.querySelector(".current-color-preview");
   if (!isRainbow) {
     currentColor.style.backgroundColor = userColor;
   } else {
-    currentColor.style.backgroundColor = "rgb(120, 194, 255)";
+    currentColor.style.backgroundColor = "rgb(89, 0, 255)";
   }
 }
 
@@ -150,11 +149,10 @@ changeColorBtn.addEventListener("click", () => {
 // preset colors
 function makePresetColors() {
   const presetColors = document.querySelectorAll(".preset-colors button");
+  setCurrentColor();
+
   presetColors.forEach((button) => {
     button.style.width = squareSize;
-    if (button.className == "rainbow-mode") {
-      button.style.width = 2 * squareSize;
-    }
     button.style.height = squareSize;
     button.style.backgroundColor = button.className;
 
