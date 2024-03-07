@@ -16,7 +16,7 @@
     <div class="main-container">
       <div class="action-buttons">
         <button class="new-grid">New Grid</button>
-        <button class="reset-btn">Reset</button>
+        <button class="reset-btn" id="reset">Reset</button>
         <button class="grid-selector-btn">Grid ON/OFF</button>
         <button class="change-color-btn">Change color</button>
         <fieldset class="mode-selector-container">
@@ -35,9 +35,13 @@
       <div class="container"></div>
 
       <div class="color-btn-container">
+        <fieldset class="fieldset">
+          <legend>Current</legend>
+          <div class="current-color-preview"></div>
+        </fieldset>
         <div class="preset-colors">
-          <fieldset>
-            <legend>Default Colors</legend>
+          <fieldset class="fieldset default">
+            <legend>Default</legend>
             <button class="darkred"></button>
             <button class="darkorange"></button>
             <button class="gold"></button>
@@ -45,15 +49,12 @@
             <button class="purple"></button>
             <button class="darkblue"></button>
             <button class="white"></button>
-            <div class="rainbow-container">
-              <button class="rainbow-mode">Rainbow Mode</button>
-            </div>
           </fieldset>
+          <div class="rainbow-container">
+            <button class="rainbow-mode">Rainbow</button>
+          </div>
         </div>
       </div>
     </div>
-    <p class="current-color-p">
-      Current color = <span class="current-color">bisque</span>
-    </p>
   </body>
 </html>
