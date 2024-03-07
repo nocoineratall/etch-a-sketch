@@ -2,48 +2,71 @@
 let gridSize = 16; //intended 16x16
 let userColor = "bisque"; //defaulted to bisque
 let isRainbow = false;
-let squareWidthHeight = "10px"; //defaulted to 10px
+let squareSize = "10px"; //defaulted to 10px
 let gridThickness = "1px";
 const gridWidth = 640; //px
 const gridHeight = gridWidth;
 const container = document.querySelector(".container");
+const square = document.createElement("div");
 container.style.maxWidth = String(gridWidth) + "px"; // no need to set maxHeight also
-printGrid(gridSize);
+printGrid(gridSize, square);
 makePresetColors();
 
-function printGrid(_gridSize) {
+function printGrid(_gridSize, _square) {
   removeAllChild(container);
   for (let i = 1; i <= _gridSize ** 2; i++) {
-    const square = document.createElement("div");
-    square.classList = "square";
-    //square.textContent = i;
+    const tempSquare = document.createElement("div");
+    tempSquare.classList = "square";
+    tempSquare.style = _square.style.backgroundColor;
+    tempSquare.style.width = calcSquareSize(_gridSize, tempSquare);
+    tempSquare.style.height = calcSquareSize(_gridSize, tempSquare);
 
-    setSquareSize(square, _gridSize);
-    square.addEventListener("mouseover", () => {
+    tempSquare.addEventListener("mouseover", () => {
       if (!isRainbow) {
-        square.style.backgroundColor = userColor;
+        tempSquare.style.backgroundColor = userColor;
       } else {
         // random rgb color when "rainbow" mode is active
         let randomR = Math.floor(Math.random() * 256);
         let randomG = Math.floor(Math.random() * 256);
         let randomB = Math.floor(Math.random() * 256);
         let randomRGB = `rgb(${randomR}, ${randomG}, ${randomB})`;
-        square.style.backgroundColor = randomRGB;
+        tempSquare.style.backgroundColor = randomRGB;
       }
     });
-    container.appendChild(square);
+    container.appendChild(tempSquare);
   }
 }
 
-function setSquareSize(_square, _gridSize) {
+// allows the grid toggle to rebuild the current grid as it is
+function printSingleSquare(_gridSize, _currentSquare) {
+  const tempSquare = document.createElement("div");
+  tempSquare.classList = "square";
+  tempSquare.style.backgroundColor = _currentSquare.style.backgroundColor;
+  tempSquare.style.width = calcSquareSize(_gridSize, tempSquare);
+  tempSquare.style.height = calcSquareSize(_gridSize, tempSquare);
+
+  tempSquare.addEventListener("mouseover", () => {
+    if (!isRainbow) {
+      tempSquare.style.backgroundColor = userColor;
+    } else {
+      // random rgb color when "rainbow" mode is active
+      let randomR = Math.floor(Math.random() * 256);
+      let randomG = Math.floor(Math.random() * 256);
+      let randomB = Math.floor(Math.random() * 256);
+      let randomRGB = `rgb(${randomR}, ${randomG}, ${randomB})`;
+      tempSquare.style.backgroundColor = randomRGB;
+    }
+  });
+  container.appendChild(tempSquare);
+}
+
+function calcSquareSize(_gridSize, _square) {
   let squareStyleBorder =
-    (_square.style.border = `${gridThickness} solid slategrey`);
+    (_square.style.border = `${gridThickness} solid black`);
   let squareStyleBorderSize = squareStyleBorder.charAt(0);
   // takes into account the border thickness when computing the square size
-  squareWidthHeight =
-    String(gridWidth / _gridSize - 2 * squareStyleBorderSize) + "px";
-  _square.style.width = squareWidthHeight;
-  _square.style.height = squareWidthHeight;
+  squareSize = String(gridWidth / _gridSize - 2 * squareStyleBorderSize) + "px";
+  return squareSize;
 }
 
 // makes a new grid based on input
@@ -51,7 +74,7 @@ const newGridBtn = document.querySelector(".new-grid");
 newGridBtn.addEventListener("click", () => {
   gridSize = prompt("Enter the size of the grid (1-100)");
   if (gridSize > 0 && gridSize <= 100) {
-    printGrid(gridSize);
+    printGrid(gridSize, square);
   } else {
     alert("Input denied - Set a size from 1 to 100");
   }
@@ -65,25 +88,27 @@ function removeAllChild(parent) {
 }
 
 // Turns grid On-Off
-const gridSelector = document.querySelector(".grid-selector-btn");
 function toggleGridOnOff(currentGridThickness) {
   if (currentGridThickness == "0px") gridThickness = "1px";
   if (currentGridThickness == "1px") gridThickness = "0px";
+
+  // saves current grid, clears it and prints
+  let currentGrid = document.querySelectorAll(".container .square");
+  removeAllChild(container);
+  currentGrid.forEach((currentSquare) => {
+    printSingleSquare(gridSize, currentSquare);
+  });
 }
 
+const gridSelector = document.querySelector(".grid-selector-btn");
 gridSelector.addEventListener("click", () => {
-  let response = prompt("It will reset the grid. Continue? (Y/N)");
-  response = response.toLowerCase();
-  if (response == "y") {
-    toggleGridOnOff(gridThickness);
-    printGrid(gridSize);
-  }
+  toggleGridOnOff(gridThickness);
 });
 
 // button to reset grid
 const resetBtn = document.querySelector(".reset-btn");
 resetBtn.addEventListener("click", () => {
-  printGrid(gridSize);
+  printGrid(gridSize, square);
 });
 
 // button for color picking
@@ -114,11 +139,11 @@ changeColorBtn.addEventListener("click", () => {
 function makePresetColors() {
   const presetColors = document.querySelectorAll(".preset-colors button");
   presetColors.forEach((button) => {
-    button.style.width = squareWidthHeight;
+    button.style.width = squareSize;
     if (button.className == "rainbow-mode") {
-      button.style.width = 2 * squareWidthHeight;
+      button.style.width = 2 * squareSize;
     }
-    button.style.height = squareWidthHeight;
+    button.style.height = squareSize;
     button.style.backgroundColor = button.className;
 
     button.addEventListener("click", () => {
