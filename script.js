@@ -9,6 +9,18 @@ const gridHeight = gridWidth;
 const container = document.querySelector(".container");
 const square = document.createElement("div");
 container.style.maxWidth = String(gridWidth) + "px"; // no need to set maxHeight also
+
+//mode selection
+const modeInputs = document.querySelectorAll("input");
+let mode = "mouseover"; //defaulted to flow mode
+modeInputs.forEach((input) => {
+  input.addEventListener("click", () => {
+    if (input.value == "flow") mode = "mouseover";
+    if (input.value == "point") mode = "click";
+    printGrid(gridSize, square);
+  });
+});
+
 printGrid(gridSize, square);
 makePresetColors();
 
@@ -21,7 +33,7 @@ function printGrid(_gridSize, _square) {
     tempSquare.style.width = calcSquareSize(_gridSize, tempSquare);
     tempSquare.style.height = calcSquareSize(_gridSize, tempSquare);
 
-    tempSquare.addEventListener("mouseover", () => {
+    tempSquare.addEventListener(mode, () => {
       if (!isRainbow) {
         tempSquare.style.backgroundColor = userColor;
       } else {
@@ -45,7 +57,7 @@ function printSingleSquare(_gridSize, _currentSquare) {
   tempSquare.style.width = calcSquareSize(_gridSize, tempSquare);
   tempSquare.style.height = calcSquareSize(_gridSize, tempSquare);
 
-  tempSquare.addEventListener("mouseover", () => {
+  tempSquare.addEventListener("click", () => {
     if (!isRainbow) {
       tempSquare.style.backgroundColor = userColor;
     } else {
