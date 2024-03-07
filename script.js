@@ -57,7 +57,7 @@ function printSingleSquare(_gridSize, _currentSquare) {
   tempSquare.style.width = calcSquareSize(_gridSize, tempSquare);
   tempSquare.style.height = calcSquareSize(_gridSize, tempSquare);
 
-  tempSquare.addEventListener("click", () => {
+  tempSquare.addEventListener(mode, () => {
     if (!isRainbow) {
       tempSquare.style.backgroundColor = userColor;
     } else {
